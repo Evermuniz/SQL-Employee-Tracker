@@ -27,3 +27,21 @@ app.use((req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+
+db.query(   `SELECT employee.id, 
+                employee.first_name, 
+                employee.last_name, 
+                role.title, 
+                department.name, 
+                role.salary, 
+                CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+
+            FROM employee
+
+            JOIN role on employee.role_id = role.id 
+            JOIN department on role.department_id = department.id
+            LEFT JOIN employee as manager on manager.manager_id = employee.id;`,
+            function (err, results) {
+                console.table(results);
+            });
