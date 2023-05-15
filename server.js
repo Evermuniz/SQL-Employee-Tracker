@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+const formatRowsToTable = require('./helpers/formatting')
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -14,7 +15,8 @@ const optionsActions = {
       .promise()
       .query(`SELECT id, name FROM department;`)
       .then(([rows, fields]) => {
-        console.table(rows);
+        const table = formatRowsToTable(rows);
+        console.log(table);
         promptOptions();
       })
       .catch(console.log),
@@ -23,10 +25,11 @@ const optionsActions = {
     db
       .promise()
       .query(
-        `SELECT title, role.id, salary, department.name FROM role LEFT JOIN department on role.id = department.id;`
+        `SELECT title, role.id, salary, department.name FROM role JOIN department on role.department_id = department.id;`
       )
       .then(([rows, fields]) => {
-        console.table(rows);
+        const table = formatRowsToTable(rows);
+        console.log(table);
         promptOptions();
       })
       .catch(console.log),
@@ -51,7 +54,8 @@ const optionsActions = {
             LEFT JOIN employee as manager on manager.id = employee.manager_id;`
       )
       .then(([rows, fields]) => {
-        console.table(rows);
+        const table = formatRowsToTable(rows);
+        console.log(table);
         promptOptions();
       })
       .catch(console.log),
