@@ -1,3 +1,5 @@
+-- All the sample data inserted into the 3 tables for the purposes of this project --
+
 INSERT INTO department (id, name)
 VALUES  (1, 'HR'),
         (2, 'Sales'),
