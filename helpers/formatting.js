@@ -6,17 +6,17 @@ function formatRowsToTable(rows) {
   const columns = Object.keys(rows[0]);
   const maxLengths = {};
 
-  // Calculate the maximum length for each column
+
   for (const column of columns) {
     maxLengths[column] = Math.max(column.length, ...rows.map((row) => String(row[column]).length));
   }
 
-  // Create the table header
+
   let table = "";
   table += columns.map((column) => column.padEnd(maxLengths[column])).join(" | ") + "\n";
   table += "-".repeat(Object.values(maxLengths).reduce((sum, length) => sum + length + 3, 0)) + "\n";
 
-  // Create the table rows
+
   for (const row of rows) {
     table += columns.map((column) => String(row[column]).padEnd(maxLengths[column])).join(" | ") + "\n";
   }

@@ -1,6 +1,6 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const formatRowsToTable = require('./helpers/formatting')
+const formatRowsToTable = require("./helpers/formatting");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -13,7 +13,12 @@ const optionsActions = {
   "View all departments": () =>
     db
       .promise()
-      .query(`SELECT id, name FROM department;`)
+      .query(
+        `SELECT 
+                id, 
+                name 
+            FROM department;`
+      )
       .then(([rows, fields]) => {
         const table = formatRowsToTable(rows);
         console.log(table);
@@ -25,7 +30,13 @@ const optionsActions = {
     db
       .promise()
       .query(
-        `SELECT title, role.id, salary, department.name FROM role JOIN department on role.department_id = department.id;`
+        `SELECT 
+            title, 
+            role.id, 
+            salary, 
+            department.name 
+        FROM role 
+        JOIN department on role.department_id = department.id;`
       )
       .then(([rows, fields]) => {
         const table = formatRowsToTable(rows);
@@ -247,6 +258,26 @@ const optionsActions = {
           .catch(console.log);
       });
   },
+  "View total expense by department": () =>
+    db
+      .promise()
+      .query(
+        `SELECT 
+            department.name,
+            sum(role.salary) as Total_Expense
+
+        FROM role
+        JOIN department on department.id = role.department_id
+        RIGHT JOIN employee on employee.role_id = role.id
+
+        GROUP BY department.name;`
+      )
+      .then(([rows, fields]) => {
+        const table = formatRowsToTable(rows);
+        console.log(table);
+        promptOptions();
+      })
+      .catch(console.log),
 
   Exit: () => db.end(),
 };
@@ -266,6 +297,7 @@ function promptOptions() {
           "Add a role",
           "Add an employee",
           "Update an employee role",
+          "View total expense by department",
           "Exit",
         ],
       },
@@ -282,5 +314,3 @@ function promptOptions() {
 }
 
 promptOptions();
-
-
