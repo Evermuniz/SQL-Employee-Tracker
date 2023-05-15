@@ -14,9 +14,7 @@ This application uses mysql to view and manage departments, roles, and employees
 
 
 ## Usage
-You will need MySQL and Node.js to run this application. You will need to install inquirer v8.2.4 and mysql2. From the db folder open a terminal and enter `mysql -uroot`. Next, enter `source schema.sql` followed by `source seeds.sql`. This will load the database and tables. Finally, from the server.js file, open a terminal and enter `node server.js` to begin the application. You can scroll through the options and select an action. Follow this [link]() to visit the deployed application. 
-
-![application screenshot](./public/assets/screenshot/app-screenshot.jpeg).
+You will need MySQL and Node.js to run this application. You will need to install inquirer v8.2.4 and mysql2. From the db folder open a terminal and enter `mysql -uroot`. Next, enter `source schema.sql` followed by `source seeds.sql`. This will load the database and tables. Finally, from the server.js file, open a terminal and enter `node server.js` to begin the application. You can scroll through the options and select an action. Click on the thumbnail below to view a recording of the application in action. [![Screenshot of the video thumbnail showing the application running in the command terminal](./assets/application_screenshot.jpeg)](https://drive.google.com/file/d/1d10Xsipqo7y4N6EZffc7LQUCT9r5JnUW/view) 
 
 ## Credits
 - Node.js
